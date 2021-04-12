@@ -1,0 +1,13 @@
+<h1>Nueva lista</h1>
+
+{% for elemento in lista %}
+    <h1>
+        {{ elemento.titulo }}
+    </h1>
+    <h3>
+        {{ elemento.subtitulo }}
+    </h3>
+    <p>
+        {{ elemento.cantidad }}
+    </p>
+{% endfor %}
