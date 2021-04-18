@@ -1,7 +1,14 @@
 from django.shortcuts import render
+
+from django.urls import reverse_lazy
+
 from django.views.generic import (
     ListView,
-    DetailView
+    DetailView,
+    CreateView,
+    TemplateView,
+    UpdateView,
+    DeleteView
 )
 # Create your views here.
 
@@ -64,3 +71,70 @@ class ListaHabilidadesEmpleado(ListView):
 class EmpleadoDetailView(DetailView):
     model = Empleado
     template_name = 'personal/detalles_empleado.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
+        context['titulo'] = 'Empleado del mes'
+        
+        return context
+
+
+class SuccessView(TemplateView):
+    template_name = 'personal/success.html'
+
+
+class EmpleadoCreateView(CreateView):
+    template_name = 'personal/agregar_empleado.html'
+    model = Empleado
+    # campos que necesita para rellenar
+    fields = [
+        'first_name',
+        'second_name',
+        'last_name',
+        'job',
+        'departamento',
+        'habilidades',
+        'hoja_vida',
+    ]
+    # la url a la que va redireccionar una vez enviado los datos
+    success_url = reverse_lazy('persona_app:correcto')
+
+    def form_valid(self, form):
+        #logica del proces
+        empleado = form.save(commit=False)
+        empleado.full_name = empleado.first_name + ' ' + empleado.second_name + ' ' + empleado.last_name
+        empleado.save()
+        return super(EmpleadoCreateView, self).form_valid(form)
+
+class EmpleadoUpdateView(UpdateView):
+    template_name = 'personal/actualizar_empleado.html'
+    model = Empleado
+    # campos para actualizar
+    fields = [
+        'first_name',
+        'second_name',
+        'last_name',
+        'job',
+        'departamento',
+        'habilidades',
+        'hoja_vida',
+    ]
+    # la url a la que va redireccionar una vez enviado los datos
+    success_url = reverse_lazy('persona_app:correcto')
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print('*******Metodo post*******')
+        print(request.POST)
+        print(request.POST['last_name'])
+        return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        #logica del proces
+        print('*******Metodo form valid*******')
+        return super(EmpleadoUpdateView, self).form_valid(form)
+
+class EmpleadoDeleteView(DeleteView):
+    template_name = 'personal/borrar_empleado.html'
+    model = Empleado
+    success_url = reverse_lazy('persona_app:correcto')
