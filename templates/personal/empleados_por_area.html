@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-5">Listar por departamento</h1>
+<table class="table table-dark table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Primer Nombre</th>
+            <th scope="col">Segundo Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for elemento in object_list %}
+        <tr>
+            <td>{{ elemento.id }}</td>
+            <td>{{ elemento.first_name }}</td>
+            <td>{{ elemento.second_name }}</td>
+            <td>{{ elemento.last_name }}</td>
+            <td>{{ elemento.departamento.name }}</td>
+            <td><a class="btn btn-outline-success" href="{% url 'persona_app:detalle_empleado' elemento.id %}" role="button">Ver</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,6 +1,10 @@
-<h1>Eliminar empleado</h1>
+{% extends 'base.html' %}
+{% block title %} Eliminar Empleado{% endblock %}
 
+{% block content %}
+<h1>Eliminar empleado</h1>
 <form method="POST">{% csrf_token %}
-    <p>Confirme que desea eliminar</p>
+    <p>Confirme que desea eliminar: {{ object.first_name }} {{ object.second_name }} {{ object.last_name }}</p>
     <button type="submit">Confirmar Eliminar</button>
 </form>
+{% endblock %}

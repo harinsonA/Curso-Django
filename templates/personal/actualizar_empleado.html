@@ -1,6 +1,31 @@
-<h1>Modificar Datos del Empleado</h1>
+{% extends 'base.html' %}
+{% block title %} Empleados Admin{% endblock %}
 
-<form method="POST">{% csrf_token %}
-    {{ form.as_p  }}
-    <button type="submit">Actualizar</button>
-</form>
+{% block content %}
+    <h1>Modificar Datos del Empleado</h1>
+
+    <form method="POST">{% csrf_token %}
+        <div class="col-md-4">
+            {{ form.first_name }}
+        </div>
+        <div class="col-md-4">
+            {{ form.second_name }}
+        </div>
+        <div class="col-md-4">
+            {{ form.last_name }}
+        </div>
+        <div class="col-md-4">
+            {{ form.job }}
+        </div>
+        <div class="col-md-4">
+            {{ form.departamento }}
+        </div>
+        <div class="col-md-4">
+            {{ form.habilidades }}
+        </div>
+        <div class="col-md-4">
+            {{ form.hoja_vida }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+{% endblock %}

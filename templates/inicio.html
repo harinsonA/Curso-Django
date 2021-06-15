@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Pagina de Inicio Sistema de Empleados{% endblock title %}
+
+{% block content %}
+    <!-- inicio -> componente Slide -->
+    {% include 'includes/slide.html' %}
+    <!-- block de bienvenida -->
+    <div class="d-flex justify-content-center">
+        {% include 'includes/welcome.html'%}
+    </div>
+{% endblock content %}
